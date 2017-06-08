@@ -1,0 +1,16 @@
+version: "3"
+services:
+  tsorg:
+    image: node:alpine
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    command: npm run dev
+    ports:
+      - 8080:8080
+  markup:
+    build: ./markup
+    working_dir: /app
+    volumes:
+      - ./markup:/app
+    command: ruby run.rb -o 0.0.0.0

@@ -1,44 +1,51 @@
 <template>
-  <div>
-    <v-layout wrap>
-      <v-flex xs12 sm6 md8 lg9>
-        <v-layout row>
-          <v-flex xs12 sm6 md4 lg4 v-for='(card, i) in linkCards' key='i'>
-            <v-card :class='randColor()'>
-              <v-card-title>
-                <div right>
-                  <v-icon v-if='card.icon' large>{{ card.icon }}</v-icon>
-                  <span v-if='card.fa' :class='card.fa'></span>
-                  <span v-if='card.fas' v-for='fa in card.fas'>
-                    <span :class='fa'></span>
-                  </span>
-                </div>
-                {{ card.title }}
-              </v-card-title>
-              <v-card-text>{{ card.text }}</v-card-text>
-              <v-card-row actions>
-                <v-btn v-for='(action, ii) in card.actions' key='ii'>
-                  <router-link tag='span' :to='action.route'>
-                    <v-icon v-if='action.icon'>{{ action.icon }}</v-icon>
-                    <span v-if='action.fa' :class='action.fa'></span>
-                    <span v-if='action.fas' v-for='fa in fas'>
-                      <span :class='fa'></span>
-                    </span>
-                    <span v-if='action.text'>{{ action.text }}</span>
-                  </router-link>
-                </v-btn>
-              </v-card-row>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex xs12 sm6 md4 lg3>
-        <v-carousel style='height:300px;'>
-          <v-carousel-item v-for='(card, index) in whoami' key='index' v-bind:src="card.image"></v-carousel-item>
-        </v-carousel>
-      </v-flex>
-    </v-layout>
-  </div>
+  <v-layout wrap>
+    <v-flex class='pa-2' xs3>
+      <v-card :class='randColor()'>
+        <v-card-title>
+          <span class='fa fa-question-circle-o mr-2'></span>
+          Who am I?
+        </v-card-title>
+        <v-card-text>
+          <v-carousel style='height:200px;'>
+            <v-carousel-item v-for='(card, index) in whoami' key='index' v-bind:src="card.image"></v-carousel-item>
+          </v-carousel>
+        </v-card-text>
+        <v-card-row actions></v-card-row>
+      </v-card>
+    </v-flex>
+    <v-flex class='pa-2' xs3 v-for='(card, i) in linkCards' key='i'>
+      <v-card :class='randColor()'>
+        <v-card-title>
+          <div class='mr-2'>
+            <v-icon v-if='card.icon' large>{{ card.icon }}</v-icon>
+            <span v-if='card.fa' :class='card.fa'></span>
+            <span v-if='card.fas' v-for='fa in card.fas'>
+              <span :class='fa'></span>
+            </span>
+          </div>
+          {{ card.title }}
+        </v-card-title>
+        <v-card-text>
+          <v-carousel style='width:100%;'>
+            <v-carousel-item v-if="card.images" v-for="(image, idx) in card.images" key='idx' :src="image"></v-carousel-item>
+          </v-carousel>
+        </v-card-text>
+        <v-card-row actions>
+          <v-btn v-for='(action, ii) in card.actions' key='ii'>
+            <router-link tag='span' :to='action.route'>
+              <v-icon v-if='action.icon'>{{ action.icon }}</v-icon>
+              <span v-if='action.fa' :class='action.fa'></span>
+              <span v-if='action.fas' v-for='fa in fas'>
+                <span :class='fa'></span>
+              </span>
+              <span v-if='action.text'>{{ action.text }}</span>
+            </router-link>
+          </v-btn>
+        </v-card-row>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -76,7 +83,7 @@
         let shade = this.randItem(this.shades)
         let number = this.randItem(this.numbers)
         let text = shade === 'lighten' || shade === 'accent' ? ' dark--text' : ' white--text'
-        return color + ' ' + shade + '-' + number + text + ' mt-3'
+        return color + ' ' + shade + '-' + number + text + ' pa-2'
       }
     }
   }
